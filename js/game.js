@@ -623,7 +623,9 @@ function updatePlayer(dt,t){
   const sy=Math.sin(cam.yaw),cy=Math.cos(cam.yaw);
   let mx=-sy*f+cy*s,mz=-cy*f-sy*s;const len=Math.hypot(mx,mz);let amt=0;
   if(len>.08){const k=Math.min(len,1)/len;mx*=k;mz*=k;amt=Math.min(len,1);const sp=(keys.ShiftLeft||keys.ShiftRight)?7:4.4;
-    const dx=mx*sp*dt,dz=mz*sp*dt;if(free(P.x+dx,P.z))P.x+=dx;if(free(P.x,P.z+dz))P.z+=dz;P.rot=lerpAngle(P.rot,Math.atan2(mx,mz),Math.min(1,dt*12));}
+    const dx=mx*sp*dt,dz=mz*sp*dt;
+    // If a solved hazard placed a solid cell where the player stands (e.g. the worker moved by "motor"), let them walk out instead of freezing.
+    const stuck=!free(P.x,P.z);if(stuck||free(P.x+dx,P.z))P.x+=dx;if(stuck||free(P.x,P.z+dz))P.z+=dz;P.rot=lerpAngle(P.rot,Math.atan2(mx,mz),Math.min(1,dt*12));}
   P.vy-=18*dt;P.y+=P.vy*dt;if(P.y<0){P.y=0;P.vy=0;}
   P.walk+=dt*amt*(keys.ShiftLeft||keys.ShiftRight?1.5:1);
   player.root.position.set(P.x,P.y,P.z);player.root.rotation.y=P.rot;animWalk(player,P.walk,amt);
