@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>PrevenCraft PRL</title>
+<meta name="description" content="PrevenCraft · Joc 3D de la UT3 «Factors de risc i la seva prevenció» (PRL).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<canvas id="c" tabindex="0" aria-label="Món del joc PrevenCraft"></canvas>
+<div id="vignette"></div>
+
+<div id="hudZone" class="hud panel" hidden>
+  <div class="hz-tag">Zona <b id="hzNum">0</b>/5</div>
+  <div class="hz-name" id="hzName"></div>
+  <ul id="hzList"></ul>
+</div>
+<div id="hudStats" class="hud panel" hidden>
+  <div><span class="hs-lbl">Salut laboral</span><div class="hp" id="hp"></div></div>
+  <div class="hs-score"><span class="hs-lbl">Punts</span><b id="score">0</b></div>
+  <div><span class="hs-lbl">Insígnies</span><div class="badges" id="badges"></div></div>
+  <button id="helpBtn" type="button" aria-label="Ajuda">?</button>
+</div>
+<button id="prompt" class="hud panel" type="button" hidden><kbd>E</kbd><span id="promptTxt"></span></button>
+<div id="warn" class="hud" hidden></div>
+<div id="toasts" aria-live="polite"></div>
+<div id="joy" hidden><div id="knob"></div></div>
+
+<div id="overlay" hidden><div id="modal" role="dialog" aria-modal="true"></div></div>
+
+<div id="intro" class="screen">
+  <div class="card">
+    <div class="eyebrow">UT3 · Factors de risc i la seva prevenció</div>
+    <h1 class="logo">PrevenCraft</h1>
+    <p>Recorre la drassana escola i detecta els perills de cada factor de risc. Neutralitza'ls amb la mesura adequada, senyalitza la zona i obre el cofre de coneixement per passar a la zona següent. Cada zona et dona una insígnia, i les insígnies fan la teva nota de 1 a 10.</p>
+    <div>
+      <div class="eyebrow" style="margin-bottom:8px">La regla d'or (art. 15 LPRL)</div>
+      <ol class="rule">
+        <li style="--rc:var(--good)">Evita o combat el risc a l'origen</li>
+        <li style="--rc:var(--gold)">Protecció col·lectiva</li>
+        <li style="--rc:#ff9a6b">Protecció individual (EPI), com a últim recurs</li>
+      </ol>
+    </div>
+    <div class="zchips">
+      <span style="--c:#f2b134">Seguretat</span><span style="--c:#3fb6a8">Mediambientals</span><span style="--c:#e46f4f">Càrrega de treball</span><span style="--c:#9b7fe0">Organització</span><span style="--c:#4fa3e0">Avaluació</span>
+    </div>
+    <div class="field">
+      <label for="nameIn">El teu nom</label>
+      <input id="nameIn" type="text" maxlength="40" autocomplete="off" placeholder="Nom i cognom">
+    </div>
+    <div class="ctrl"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> moure · arrossega el ratolí per girar la càmera · <kbd>E</kbd> actuar · <kbd>Espai</kbd> saltar · <kbd>Maj</kbd> córrer · <kbd>H</kbd> ajuda</div>
+    <button class="btn" id="startBtn" type="button">Comença el torn</button>
+    <button class="linkbtn" id="verifyBtn" type="button">Professorat: verificar un informe</button>
+  </div>
+</div>
+<div id="endScreen" class="screen" hidden><div class="card" id="endCard"></div></div>
+
+<!-- Llibreries locals (mateixes versions que el CDN: jsPDF 2.5.1 i Three.js r128) -->
+<script src="lib/jspdf.umd.min.js"></script>
+<script src="lib/three.min.js"></script>
+<!-- Configuració, contingut didàctic i motor del joc (en aquest ordre) -->
+<script src="js/config.js"></script>
+<script src="js/content.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>
